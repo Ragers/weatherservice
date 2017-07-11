@@ -1,0 +1,100 @@
+<div>
+	<h1>Weather for {{name}}, {{sys.country}}</h1>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 current-conditions text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Current Conditions</h3>
+				</div>
+				<div class="panel-body">
+					{{weather[0].main}}
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 temperature text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Temperature</h3>
+				</div>
+				<div class="panel-body">
+					{{Math.round(main.temp)}}&deg;C
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 humidity text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Humidity</h3>
+				</div>
+				<div class="panel-body">
+					{{main.humidity}}%
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pressure text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Atmospheric Pressure</h3>
+				</div>
+				<div class="panel-body">
+					{{main.pressure}} hPa
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 clouds text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Cloudyness</h3>
+				</div>
+				<div class="panel-body">
+					{{clouds.all}}%
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 sunrise text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Sunrise</h3>
+				</div>
+				<div class="panel-body">
+					{{showTime(sys.sunrise)}}
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 sunset text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Sunset</h3>
+				</div>
+				<div class="panel-body">
+					{{showTime(sys.sunset)}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-lg-offset-4 col-md-offset-4 col-sm-offset-3 windspeed text-center">
+			<div class="panel panel-default">
+				<div class="panel-head">
+					<h3>Wind</h3>
+				</div>
+				<div class="panel-body">
+					Speed: {{Math.round(wind.speed*18/5)}} km/h ({{wind.speed}} m/s)
+					<br>
+					Direction: {{direction(wind.deg)}}
+					<br>
+					<div class="compass">
+						<div class="winddirection" :style="{transform: rotation(wind.deg)}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<button class="btn btn-warning" v-on:click="reloadInfo">Refresh Weather Data</button>
+		</div>
+	</div>
+</div>

@@ -48,7 +48,6 @@ PATHS:
     - "node_modules/bootstrap-sass/assets/stylesheets"
   # Paths to JavaScript libraries, which are combined into one file
   scripts:
-  - "src/assets/js/custom/custom.js"
   - "node_modules/vue/dist/vue.min.js"
   javascript:
     # Paths to your own project code are here

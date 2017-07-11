@@ -38,8 +38,7 @@ gulp.task('build',
     gulp.series(clean, gulp.parallel(pages, sass, javascript, images, copy, templates, fonts, css, scripts)));
 
 // Build the site, run the server, and watch for file changes
-gulp.task('dev', gulp.series('build', styleGuide, server, watch));
-gulp.task('production', gulp.series('build', server, watch));
+gulp.task('dev', gulp.series('build', server, watch));
 gulp.task('default', gulp.series('build'));
 
 // Delete the "dist" folder
@@ -99,24 +98,6 @@ function resetPages(done) {
     done();
 }
 
-// Generate a style guide from the Markdown content and HTML template in styleguide/
-function styleGuide(done) {
-    if(!PRODUCTION && PATHS.guides) {
-        var dir = PATHS.dist + '/guides';
-        if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        }
-        for(var key in PATHS.guides) {
-            var guide = PATHS.guides[key];
-            sherpa(guide.md, {
-                output: PATHS.dist + '/guides/'+guide.name+'.html',
-                template: guide.template
-            });
-        }
-        done();
-    }
-}
-
 // Compile Sass into CSS
 // In production, the CSS is compressed
 function sass() {
@@ -149,18 +130,7 @@ function javascript() {
     var bundledStream = through();
     var mainScripts = '';
 
-    // DO NOT use the tag_manager script if it is not production or if the tagManagerID is false
-    if(!GOOGLE.tagManagerID || !PRODUCTION){
-        for(var i=0;i<PATHS.javascript.length; i++){
-            var file = PATHS.javascript[i];
-            if(file.indexOf('tag_manager.js')!==-1){
-                delete PATHS.javascript[i];
-                PATHS.javascript.splice(i,1);
-            }
-        }
-    }
-
-    // Start processing all scripts
+    // Start processing all scriptsa
     for(var i = 0; i<PATHS.javascript.length; i++){
         var entry = PATHS.javascript[i];
         var name = entry.replace("src/assets/js/components","");
@@ -241,10 +211,9 @@ function reload(done) {
 function watch() {
     gulp.watch(PATHS.assets, copy);
     gulp.watch('src/pages/**/*.html').on('all', gulp.series(pages, browser.reload));
-    gulp.watch('src/templates/**/*.html').on('all', gulp.series(templates, browser.reload));
+    gulp.watch('src/templates/**/*.html').on('all', gulp.series(templates,javascript, browser.reload));
     gulp.watch('src/{layouts,partials}/**/*.html').on('all', gulp.series(resetPages, pages, browser.reload));
     gulp.watch('src/assets/scss/**/*.scss').on('all', gulp.series(sass, browser.reload));
     gulp.watch('src/assets/js/**/*.js').on('all', gulp.series(javascript, browser.reload));
     gulp.watch('src/assets/img/**/*').on('all', gulp.series(images, browser.reload));
-    gulp.watch('src/styleguide/**').on('all', gulp.series(styleGuide, browser.reload));
 }
