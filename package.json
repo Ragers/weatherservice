@@ -1,0 +1,84 @@
+{
+  "name": "weatherservice",
+  "version": "0.0.1",
+  "description": "Build of weather service data",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp",
+    "stop": "pkill --signal SIGINT gulp",
+    "dev": "gulp dev"
+  },
+  "author": "Schalk Keun (Ragers)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.7.2",
+    "babel-polyfill": "^6.23.0",
+    "bootstrap-sass": "^3.3.7",
+    "browser-sync": "^2.10.0",
+    "browserify": "^13.3.0",
+    "browserify-css": "^0.10.0",
+    "browserify-shim": "^3.8.12",
+    "event-stream": "^3.3.4",
+    "globby": "^6.1.0",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-bless": "^3.2.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-batch-replace": "0.0.0",
+    "gulp-cli": "^1.2.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-extname": "^0.2.0",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.2.0",
+    "gulp-uncss": "^1.0.1",
+    "gulp-util": "^3.0.8",
+    "js-yaml": "^3.4.6",
+    "panini": "^1.3.0",
+    "reactify": "^1.1.1",
+    "rimraf": "^2.4.3",
+    "style-sherpa": "^1.0.0",
+    "through-gulp": "^0.5.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.8.0",
+    "sass": "^0.5.0",
+    "html2js-browserify": "^1.3.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "vue": "^2.1.9",
+    "jquery": "^3.1.1",
+    "font-awesome": "^4.7.0"
+  },
+  "optionalDependencies": {},
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js",
+    "foundation": "./node_modules/foundation-sites/js/foundation.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "axios": "axios",
+    "vue": "vue",
+    "jquery": "$",
+    "foundation": "foundation"
+  }
+}

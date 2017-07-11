@@ -1,0 +1,316 @@
+<div class="shareBlock">
+    <h4 v-if="activeItem==0">
+        You can earn an even bigger discount!
+    </h4>
+    <h4 v-if="activeItem!=4 && activeItem!=0" style="font-weight: normal;">
+        <b>{{shares}} of your friends have joined!</b>
+        You’ll get {{activeDiscount}}% extra discount off your tour price.
+    </h4>
+    <h4 v-if="activeItem==4">
+        Congratulations on the big savings! {{shares}} of your friends have joined!
+        You’ll get {{activeDiscount}}% extra discount off your tour price.
+    </h4>
+
+    <div class="pge">
+        <ul class="discount-coins">
+            <li :class="activeItem==0?'next':(activeItem==1?'redeemed':(activeItem > 1?'done':''))">
+                <b>{{discountLevels[0]}}</b>%<br>OFF
+            </li>
+            <li :class="activeItem==1?'next':(activeItem==2?'redeemed':(activeItem > 2?'done':''))">
+                <b>{{discountLevels[1]}}</b>%<br>OFF
+            </li>
+            <li :class="activeItem==2?'next':(activeItem==3?'redeemed':(activeItem > 3?'done':''))">
+                <b>{{discountLevels[2]}}</b>%<br>OFF
+            </li>
+            <li :class="activeItem==3?'next':(activeItem==4?'redeemed':(activeItem > 4?'done':''))">
+                <b>{{discountLevels[3]}}</b>%<br>OFF
+            </li>
+            <li v-if="discountLevels.length > 4" :class="activeItem==4?'next':(activeItem==5?'redeemed':(activeItem > 5?'done':''))">
+                <b>{{discountLevels[4]}}</b>%<br>OFF
+            </li>
+        </ul>
+
+        <div class="progress">
+            <div class="progress-bar"
+                 role="progressbar"
+                 :aria-valuenow="progress"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 :style="{width: progress+'%'}"></div>
+            <ul class="progress-locks">
+                <li v-for="locks in progressLocks" :class="locks.class"></li>
+            </ul>
+        </div>
+    </div>
+
+    <p v-if="activeItem!=4 && activeItem!=0">
+        You have earned a {{activeDiscount}}% extra discount! Well done! You can use the discount towards
+        the first tour you book during our promotion.
+    </p>
+
+    <p v-if="activeItem==4">
+        You have earned a massive discount. Well done! You can use the discount towards the first tour you book during
+        our promotion.
+    </p>
+
+    <p v-if="activeItem==0">
+        Share your unique URL with your friends and get them to join in. The more people you get to join, the bigger
+        discount you earn.
+    </p>
+
+    <a href="javascript:;" class="btn btn-info share-now" data-fancybox="sharing" data-src="#sharing">SHARE NOW</a>
+
+
+    <div class="row">
+        <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
+            <form action="/searchmuchmoreexplore/?f=ajax&amp;d=core" method="POST"
+                  base-uri="https://expatexplore.com/"
+                  name="search-by-keyword"
+                  class="row search-filter-actions"
+                  data-display="listings_display">
+                <div class="col-md-12 form-group">
+                    <select class="form-control" name="destination">
+                        <option value="">Any Tour Destination</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Andorra">Andorra</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Bosnia">Bosnia</option>
+                        <option value="Bulgaria">Bulgaria</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Czech Republic">Czech Republic</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Egypt">Egypt</option>
+                        <option value="England">England</option>
+                        <option value="England,Scotland">England,Scotland</option>
+                        <option value="Estonia">Estonia</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Herzegovina">Herzegovina</option>
+                        <option value="Hungary">Hungary</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Israel,Jordan">Israel,Jordan</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Latvia">Latvia</option>
+                        <option value="Liechtenstein">Liechtenstein</option>
+                        <option value="Lithuania">Lithuania</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="Macedonia">Macedonia</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Montenegro">Montenegro</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Northern Ireland">Northern Ireland</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Russia">Russia</option>
+                        <option value="San Marino">San Marino</option>
+                        <option value="Scotland">Scotland</option>
+                        <option value="Serbia">Serbia</option>
+                        <option value="Slovakia">Slovakia</option>
+                        <option value="Slovenia">Slovenia</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Vatican City">Vatican City</option>
+                        <option value="Wales">Wales</option>
+                    </select>
+                </div>
+                <div class="hidden-lg hidden-md col-sm-12 col-xs-12 form-group">
+                    <select class="form-control" name="month_date">
+                        <option value="">Any Departure Month</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option>
+                    </select>
+                </div>
+                <div class="hidden-lg hidden-md col-sm-12 col-xs-12 form-group">
+                    <select class="form-control" name="year_date">
+                        <option value="">Any Departure Year</option><option value="2018">2018</option>
+                    </select>
+                </div>
+                <!--<div class="hidden-lg hidden-md col-sm-12 col-xs-12 form-group">-->
+                    <!--<input type="text" name="keyword_search" class="form-control" placeholder="Keyword" autocomplete="off" :value="keyword" v-on:focus="showInputs">-->
+                <!--</div>-->
+                <!--<div class="hidden-lg hidden-md col-sm-12 col-xs-12 form-group">-->
+                    <!--<button type="submit" class="btn btn-default" v-on:click="doSearch">Search</button>-->
+
+                    <!--<a href="/searchmuchmoreexplore/?clear_filter=true">Clear Filters</a>-->
+
+                    <!--<a href="javascript:;" v-on:click="exitingForm">-->
+                        <!--<i class="fa fa-chevron-up" aria-hidden="true"></i>-->
+                    <!--</a>-->
+
+                <!--</div>-->
+            </form>
+        </div>
+    </div>
+
+    <div class="shareModal" id="signups">
+        <div class="row">
+            <div class="grey-column col-lg-12 col-md-12 col-sm-12 col-xs-12" v-if="shares < 1">
+                <p>
+                    Start sharing to get your first friend to sign up!
+                </p>
+            </div>
+            <div class="grey-column col-lg-12 col-md-12 col-sm-12 col-xs-12" v-if="shares > 0">
+                <p>
+                    The following friends have signed up from your referral link:
+                </p>
+
+                <div class="display: block; padding: 0 15px;">
+
+                    <table class="table table-striped table-condensed">
+                        <tbody>
+                        <tr v-for="(user, index) in sharedUsers" style="border-color: #b3b2b2; border: none;  border-bottom: 1px solid">
+                            <td style="border: none;">{{index+1}}</td>
+                            <td style="border: none;">{{user.firstName}}</td>
+                            <td style="border: none;">{{user.lastName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shareModal" id="sharing">
+        <div class="row">
+            <div class="grey-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p v-if="shares < 1">
+                    <b>None of your friends have joined in</b><br>
+                    Ask your friends to sign up to receive a bigger discount on the first tour you book.
+                </p>
+                <p v-if="shares > 0 && shares < 10">
+                    <b>{{shares}} of your friends have joined in!</b><br>
+                    Get {{nextLevel}} more of your friends to sign up and earn an even bigger discount!
+                </p>
+                <h4 v-if="shares>=10">
+                    Congratulations on the big savings! {{shares}} of your friends have joined!
+                    You’ll get {{activeDiscount}}% extra discount off your tour price.
+                </h4>
+                <div class="signup-items">
+                    <div class="win">
+                        <ul class="discount-big-coins">
+                            <li :class="activeItem==0?'next':(activeItem==1?'redeemed':(activeItem > 1?'done':''))">
+                                <div>
+                                    <small>{{shareInterval[0]}} friends</small><br>
+                                    <b>{{discountLevels[0]}}%</b>
+                                    OFF
+                                </div>
+                            </li>
+                            <li :class="activeItem==1?'next':(activeItem==2?'redeemed':(activeItem > 2?'done':''))">
+                                <div>
+                                    <small>{{shareInterval[1]}} friends</small><br>
+                                    <b>{{discountLevels[1]}}%</b>
+                                    OFF
+                                </div>
+                            </li>
+                            <li :class="activeItem==2?'next':(activeItem==3?'redeemed':(activeItem > 3?'done':''))">
+                                <div>
+                                    <small>{{shareInterval[2]}} friends</small><br>
+                                    <b>{{discountLevels[2]}}%</b>
+                                    OFF
+                                </div>
+                            </li>
+                            <li :class="activeItem==3?'next':(activeItem==4?'redeemed':(activeItem > 4?'done':''))">
+                                <div>
+                                    <small>{{shareInterval[3]}} friends</small><br>
+                                    <b>{{discountLevels[3]}}%</b>
+                                    OFF
+                                </div>
+                            </li>
+                            <li v-if="discountLevels.length > 4"  :class="activeItem==4?'next':(activeItem==5?'redeemed':(activeItem > 5?'done':''))">
+                                <div>
+                                    <small>{{shareInterval[4]}} friends</small><br>
+                                    <b>{{discountLevels[4]}}%</b>
+                                    OFF
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p v-if="shares < 1">
+                    None of your friends have signed up yet!
+                </p>
+                <p v-if="activeDiscount > 0">
+                    You will get an extra {{activeDiscount}}% discount when you book  on 24 July 2017.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-3">
+
+                <div class="progress mini">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         :aria-valuenow="progress"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         :style="{width: progress+'%'}"></div>
+                    <ul class="progress-locks">
+                        <li v-for="locks in progressLocks" :class="locks.class"></li>
+                    </ul>
+                </div>
+
+                <a href="javascript:;" data-fancybox="signups" data-src="#signups">View who of your friends have joined</a>
+                <br><br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-10 col-xs-10 col-lg-offset-0 col-md-offset-0 col-sm-offset-1 col-xs-offset-1">
+                <div class="panel panel-default panel-share">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
+                                <p>
+                                    You can share your unique URL below
+                                </p>
+                                <div class="share-code">
+                                    <div><input type="text" :value="shareURL" readonly /></div>
+                                    <button class="btn btn-info" v-on:click="copyShareURL">Copy</button>
+                                </div>
+                                <p>
+                                    Or choose an option below to share it directly:
+                                </p>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 col-lg-offset-4 col-md-offset-4 col-sm-offset-0 col-xs-offset-0">
+                                        <button class="btn btn-special btn-facebook"
+                                            v-on:click="facebookShare">
+                                            <img src="https://expatexplore.com/widgets/2018launch/share/assets/img/Icon_facebook.svg" class="img-responsive" />
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                        <button class="btn btn-special btn-twitter"
+                                            v-on:click="twitterShare">
+                                            <img src="https://expatexplore.com/widgets/2018launch/share/assets/img/Icon_twitter.svg" class="img-responsive" />
+                                        </button>
+                                    </div>
+                                    <div class="hidden-lg hidden-md col-sm-3 col-xs-3">
+                                        <button class="btn btn-special btn-whatsapp"
+                                            v-on:click="whatsappShare">
+                                            <img src="https://expatexplore.com/widgets/2018launch/share/assets/img/Icon_whatsapp.svg" class="img-responsive" />
+                                        </button>
+                                    </div>
+                                    <div class="hidden-lg hidden-md col-sm-3 col-xs-3">
+                                        <button class="btn btn-special btn-email"
+                                            v-on:click="emailShare">
+                                            <img src="https://expatexplore.com/widgets/2018launch/share/assets/img/Icon_mail.svg" class="img-responsive" />
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

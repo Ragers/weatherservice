@@ -1,0 +1,56 @@
+# Your project's server will run on localhost:xxxx at this port
+PORT: 8000
+
+ROOTS:
+  root: 'src/pages/'
+  layouts: 'src/layouts/'
+  partials: 'src/partials/'
+  data: 'src/data/'
+  helpers: 'src/helpers/'
+
+# Default settings for your site
+
+SITE_PAGES:
+  homePage: ""
+
+# Autoprefixer will make sure your CSS works with these browsers
+COMPATIBILITY:
+  - "last 2 versions"
+  - "ie >= 9"
+  - "ios >= 7"
+
+# Gulp will reference these paths when it copies files
+PATHS:
+  # Path to dist folder
+  dist: "dist"
+  # Paths to static assets that aren't images, CSS, or JavaScript
+  fonts:
+    - "node_modules/font-awesome/fonts/FontAwesome.otf"
+    - "node_modules/font-awesome/fonts/fontawesome-webfont.eot"
+    - "node_modules/font-awesome/fonts/fontawesome-webfont.svg"
+    - "node_modules/font-awesome/fonts/fontawesome-webfont.ttf"
+    - "node_modules/font-awesome/fonts/fontawesome-webfont.woff"
+    - "node_modules/font-awesome/fonts/fontawesome-webfont.woff2"
+  images: "src/assets/img/**/*"
+  css:
+    - "node_modules/font-awesome/css/font-awesome.min.css"
+  assets:
+    - "src/assets/**/*"
+    - "!src/assets/{img,js,scss}/**/*"
+  pages:
+    - 'src/pages/**/*.{html,hbs,handlebars}'
+  templates:
+    - "src/templates/**/*"
+  # Paths to Sass libraries, which can then be loaded with @import
+  sasscss:
+    - "src/assets/scss/style.scss"
+  sass:
+    - "node_modules/bootstrap-sass/assets/stylesheets"
+  # Paths to JavaScript libraries, which are combined into one file
+  scripts:
+  - "src/assets/js/custom/custom.js"
+  - "node_modules/vue/dist/vue.min.js"
+  javascript:
+    # Paths to your own project code are here
+    - "src/assets/js/scripts.js"
+    - "node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"
